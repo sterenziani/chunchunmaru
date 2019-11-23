@@ -4,6 +4,10 @@
 // PARA COMPILAR!!!
 // gcc -o sound sound.c -lopenal -lm
 
+// Mac
+// brew install openal-soft
+// gcc -framework OpenAL sound.c -o sound
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
