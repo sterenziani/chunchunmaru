@@ -14,8 +14,8 @@
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
 #elif __linux
-#include <AL/al.h>
-#include <AL/alc.h>
+#include "openal-soft/include/AL/al.h"
+#include "openal-soft/include/AL/alc.h"
 #endif
 
 #define CORCHEA 10
