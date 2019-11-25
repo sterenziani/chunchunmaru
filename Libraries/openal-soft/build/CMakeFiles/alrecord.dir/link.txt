@@ -1,1 +1,0 @@
-/usr/bin/cc -O2 -g -D_DEBUG  -rdynamic CMakeFiles/alrecord.dir/examples/alrecord.c.o  -o alrecord -Wl,-rpath,/home/santi/repos/chunchunmaru/Libraries/openal-soft/build: -pthread libex-common.a libopenal.so.1.19.1 -lrt 

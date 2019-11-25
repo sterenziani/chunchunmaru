@@ -1,1 +1,0 @@
-/usr/bin/cc   -rdynamic CMakeFiles/bin2h.dir/bin2h.c.o  -o bin2h 

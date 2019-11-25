@@ -1,1 +1,0 @@
-/usr/bin/cc   -rdynamic CMakeFiles/bsincgen.dir/bsincgen.c.o  -o bsincgen -lm 
