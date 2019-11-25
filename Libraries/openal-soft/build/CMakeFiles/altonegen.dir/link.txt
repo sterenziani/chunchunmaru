@@ -1,0 +1,1 @@
+/usr/bin/cc -O2 -g -D_DEBUG  -rdynamic CMakeFiles/altonegen.dir/examples/altonegen.c.o  -o altonegen -Wl,-rpath,/home/santi/repos/chunchunmaru/Libraries/openal-soft/build: -pthread -lm libex-common.a libopenal.so.1.19.1 -lrt 

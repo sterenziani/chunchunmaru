@@ -1,0 +1,4 @@
+/home/santi/repos/chunchunmaru/Libraries/openal-soft/build/native-tools/CMakeFiles/rebuild_cache.dir
+/home/santi/repos/chunchunmaru/Libraries/openal-soft/build/native-tools/CMakeFiles/edit_cache.dir
+/home/santi/repos/chunchunmaru/Libraries/openal-soft/build/native-tools/CMakeFiles/bin2h.dir
+/home/santi/repos/chunchunmaru/Libraries/openal-soft/build/native-tools/CMakeFiles/bsincgen.dir

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/santi/repos/chunchunmaru/Libraries/openal-soft/native-tools/bin2h.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+errno.h
+-
+

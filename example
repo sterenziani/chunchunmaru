@@ -1,0 +1,59 @@
+start
+	num i = (5 + 6 - 12 / 2) * 3 - 10
+	text j
+	text a = j*i
+	print a
+
+	j = "Hola mundo"
+	if i == 5
+		text localvar = "Yo solo deberia exstir en este if!\n"
+		print "i is currently 5\n\n"
+	else if i == 4
+		print "Secreto\n"
+	else
+		print "Holi! :)\n"
+	end if
+
+	until i == 0
+		i = i - 1
+		print "i is now " + i + "!\n"
+		play 11A#
+	end loop
+
+	while i < 5
+		i = i +2
+		print "i is now " +i +"!!!\n"
+	end loop
+	play 40R
+
+	print "localvar?"
+	play 11F
+	play 11A
+	play 21B
+	play 11F
+	play 11A
+	play 21B
+
+	play 11F
+	play 11A
+	play 11B
+	play 12E
+	play 22D
+
+	play 11B
+	play 12C
+	play 11B
+	play 11G
+	play 41E
+
+	play 11D
+	play 11E
+	play 11G
+	play 41E
+
+	print "\n\n===TO DO LIST===:\n"
+	print "\tFix local variables using scope\n"
+	print "\tRemove flags "
+	print "\tImplement math operations for notes\n\t\tKey + int shifts that many keys to the right\n\t\tKey * int speeds up the length if possible\n\t\tKey with key is invalid\n"
+
+end
