@@ -1,17 +1,33 @@
 start
-	num i = (5 + 6 - 12 / 2) * 3 - 10
-	text j
+	num i = 5
+	text j = "a"
 	text a = j*i
-	print a
+	print a +"\n"
 
-	j = "Hola mundo"
-	if i == 5
-		text localvar = "Yo solo deberia exstir en este if!\n"
+	const num fijo = 4
+	print fijo
+
+	if i==5
+		text localvar = "Yo solo deberia existir en este if!\n"
 		print "i is currently 5\n\n"
 	else if i == 4
 		print "Secreto\n"
 	else
 		print "Holi! :)\n"
+	end if
+
+	text nombre = "Paula"
+	if nombre < "Zelda"
+		print "Alfabeticamente, " +nombre +" viene antes que Zelda\n"
+		if nombre < "Eugenio"
+			print "Y antes que Nico tambien!\n"
+		else if nombre < "Nico"
+			print nombre +" no viene antes que Nico pero sí antes que Pedro\n"
+		else if nombre < "Santi"
+			print nombre +" viene antes que Santi\n"
+		else
+			print "Bueno, viene antes que Zelda al menos...\n"
+		end if
 	end if
 
 	until i == 0
@@ -23,10 +39,17 @@ start
 	while i < 5
 		i = i +2
 		print "i is now " +i +"!!!\n"
+
+
 	end loop
 	play 40R
 
-	print "localvar?"
+
+	note x = 22C#
+	print x
+	print "\n"
+
+	print localvar
 	play 11F
 	play 11A
 	play 21B
@@ -53,7 +76,6 @@ start
 
 	print "\n\n===TO DO LIST===:\n"
 	print "\tFix local variables using scope\n"
-	print "\tRemove flags "
+	print "\tRemove flags in compiler\n"
 	print "\tImplement math operations for notes\n\t\tKey + int shifts that many keys to the right\n\t\tKey * int speeds up the length if possible\n\t\tKey with key is invalid\n"
-
 end

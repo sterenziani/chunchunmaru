@@ -17,7 +17,7 @@
 }
 
 /* Tokens */
-%token          start end print play isnow endline if_token else_token endif while_token until endloop and or num_t text_t note_t plus minus times div_token open_p close_p equals ge le lt gt dif
+%token          start end print play const_token isnow endline if_token else_token endif while_token until endloop and or num_t text_t note_t plus minus times div_token open_p close_p equals ge le lt gt dif
 %token<value>   num_c text_c note_c id
 %type<node>     PROGRAM CODE INSTRUCTION ELIF CONDITION EXPRESSION TERM COMPARATOR TYPE DECLARATION ASSIGNMENT REASSIGNMENT
 %start          PROGRAM
@@ -49,11 +49,11 @@
 
     CODE:       INSTRUCTION                                                     { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, $1);
-                                                                                  append($$, newNode(TYPE_LITERAL, ";\n"));
+                                                                                  append($$, newNode(TYPE_LITERAL, "\n"));
                                                                                 }
     				    | INSTRUCTION CODE                                              { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, $1);
-                                                                                  append($$, newNode(TYPE_LITERAL, ";\n"));
+                                                                                  append($$, newNode(TYPE_LITERAL, "\n"));
                                                                                   append($$, $2);
                                                                                 };
 
@@ -66,7 +66,10 @@
                                                                                   if ($2->type == TYPE_NOTE)
                                                                                       append($$, newNode(TYPE_LITERAL, "printf(\"%s\", "));
                                                                                   append($$, $2);
-                                                                                  append($$, newNode(TYPE_LITERAL, ")"));
+																																									if ($2->type == TYPE_NOTE)
+																																											append($$, newNode(TYPE_LITERAL, ".desc);"));
+																																									else
+                                                                                  		append($$, newNode(TYPE_LITERAL, ");"));
                                                                                 }
       				  | play EXPRESSION endline                                       { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   if ($2->type != TYPE_NOTE)
@@ -75,7 +78,7 @@
                                                                                   {
                                                                                     append($$, newNode(TYPE_LITERAL, "playNote("));
                                                                                     append($$, $2);
-                                                                                    append($$, newNode(TYPE_LITERAL, ")"));
+                                                                                    append($$, newNode(TYPE_LITERAL, ");"));
                                                                                   }
                                                                                 }
       				  | DECLARATION endline                                           { $$ = $1;}
@@ -88,7 +91,7 @@
                                                                                   append($$, $4);
                                                                                   append($$, newNode(TYPE_LITERAL, "}\n"));
                                                                                 }
-          			| if_token CONDITION endline CODE ELIF endline                  { $$ = newNode(TYPE_EMPTY, NULL);
+          			| if_token CONDITION endline CODE ELIF endif endline            { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, "if("));
                                                                                   append($$, $2);
                                                                                   append($$, newNode(TYPE_LITERAL, "){\n"));
@@ -109,11 +112,12 @@
                                                                                   append($$, newNode(TYPE_LITERAL, ")){\n"));
                                                                                   append($$, $4);
                                                                                   append($$, newNode(TYPE_LITERAL, "}"));
-                                                                                };
+                                                                                }
+								| endline																												{ $$ = newNode(TYPE_LITERAL, "");};
 
 
 
-    ELIF:       else_token if_token CONDITION endline CODE endif endline        { $$ = newNode(TYPE_EMPTY, NULL);
+    ELIF:       else_token if_token CONDITION endline CODE							        { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, "else if ("));
                                                                                   append($$, $3);
                                                                                   append($$, newNode(TYPE_LITERAL, "){\n"));
@@ -128,7 +132,7 @@
                                                                                   append($$, newNode(TYPE_LITERAL, "}\n"));
                                                                                   append($$, $6);
                                                                                 }
-      				  | else_token endline CODE endif endline                         { $$ = newNode(TYPE_EMPTY, NULL);
+      				  | else_token endline CODE							                          { $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, "else {\n"));
                                                                                   append($$, $3);
                                                                                   append($$, newNode(TYPE_LITERAL, "}\n"));
@@ -212,7 +216,7 @@
     				      | num_c                                                       { $$ = newNode(TYPE_NUM, $1); }
                   | note_c                                                      { $$ = newNode(TYPE_NOTE, $1); }
                   | id                                                          { int type = getType($1);
-																																									if (type == -1 || !isInCurrentScope($1))
+																																									if (type == -1)
 																																										yyerror("Undeclared variable\n");
                                                                                   $$ = newNode(type, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, $1));
@@ -226,9 +230,9 @@
 
 
 
-    DECLARATION: TYPE id ASSIGNMENT                                             { if (isInCurrentScope($2) == 1)
+    DECLARATION: TYPE id ASSIGNMENT                                             { if (getType($2) != -1)
                                                                                     yyerror("Variable already declared\n");
-                                                                                  if (addVar($2, $1->type) == -1)
+                                                                                  if (addVar($2, $1->type, 0) == -1)
                                                                                     yyerror("Exceeded max amount of variables.\n");
                                                                                   if ($3 != NULL && $1->type != $3->type) {
                                                                                     yyerror("Can't assign that value to a variable of that type.\n");
@@ -237,6 +241,20 @@
                                                                                   append($$, $1);
                                                                                   append($$, newNode(TYPE_LITERAL, $2));
                                                                                   append($$, $3);
+                                                                                }
+								| const_token TYPE id ASSIGNMENT																{ if (getType($3) != -1)
+                                                                                    yyerror("Variable already declared\n");
+																																									if ($4 == NULL)
+																																										yyerror("Constant values must be defined immediately.\n");
+                                                                                  if (addVar($3, $2->type, 1) == -1)
+                                                                                    yyerror("Exceeded max amount of variables.\n");
+                                                                                  if ($2->type != $4->type) {
+                                                                                    yyerror("Can't assign that value to a variable of that type.\n");
+                                                                                  }
+                                                                                  $$ = newNode(TYPE_EMPTY, NULL);
+                                                                                  append($$, $2);
+                                                                                  append($$, newNode(TYPE_LITERAL, $3));
+                                                                                  append($$, $4);
                                                                                 };
 
 
@@ -245,19 +263,23 @@
                 | isnow EXPRESSION                                              { $$ = newNode($2->type, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, " = "));
                                                                                   append($$, $2);
+																																									append($$, newNode(TYPE_LITERAL, ";"));
                                                                                 };
 
 
 
     REASSIGNMENT: id isnow EXPRESSION                                           { int type = getType($1);
-																																									if (type == -1 || !isInCurrentScope($1))
+																																									if (type == -1)
 																																										yyerror("Undeclared variable\n");
                                                                                   if (type != $3->type)
                                                                                       yyerror("Can't assign that value to a variable of that type\n");
+																																									if (isConst($1))
+																																											yyerror("Can't assign a value to a defined constant.\n");
                                                                                   $$ = newNode(TYPE_EMPTY, NULL);
                                                                                   append($$, newNode(TYPE_LITERAL, $1));
                                                                                   append($$, newNode(TYPE_LITERAL, " = "));
                                                                                   append($$, $3);
+																																									append($$, newNode(TYPE_LITERAL, ";"));
                                                                                 };
 %%
 

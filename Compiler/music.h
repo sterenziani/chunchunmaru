@@ -6,10 +6,10 @@
 
 #define LOG_FILE	"sound.log"
 
-#define CORCHEA		10*2
-#define NEGRA		  20*2
-#define BLANCA		40*2
-#define REDONDA		80*2
+#define CORCHEA		20
+#define NEGRA		  40
+#define BLANCA		80
+#define REDONDA		160
 
 #define REST    0
 #define C2			6541
@@ -79,9 +79,11 @@
 
 typedef struct note {
    unsigned	frequency;
-   int		length;
+   int		  length;
+   char     desc[5];
 } note;
 
+void shiftNote(char* n, int offset, char* ret);
 note createNote(unsigned rate, int ms);
 void playNote(note n);
 int noteCmp(note n1, note n2);

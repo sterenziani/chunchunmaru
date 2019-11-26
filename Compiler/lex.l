@@ -28,6 +28,7 @@ varname     {alpha}({alpha}|{digit}|'_')*
 "play"      {return play;}
 "="			    {return isnow;}
 "\n"        {lines++; return endline;}
+"const"			{return const_token;}
 
 "if"			  {return if_token;}
 "else"		  {return else_token;}

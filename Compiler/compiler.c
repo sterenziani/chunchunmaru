@@ -10,14 +10,14 @@ struct op_values {
     char * input;
 } op;
 
-static char * strCatFunction = "char * _strconcat(char * str1, char * str2) {\n"
+static char * strCatFunction = "char * concatStrings(char * str1, char * str2) {\n"
                                 "\tchar * newstr = malloc(strlen(str1) + strlen(str2) + 1);\n"
                                 "\tstrcpy(newstr, str1);\n"
                                 "\tstrcat(newstr, str2);\n"
                                 "\treturn newstr;\n"
                             "}\n";
 
-static char * strIntCatFunction = "char * _strintconcat(char * str, int num, int sort) {\n"
+static char * strIntCatFunction = "char * concatIntString(char * str, int num, int sort) {\n"
                                 "\tchar * newstr = malloc(strlen(str) + 20);\n"
                                 "\tif (sort > 0)\n"
                                 "\t\tsprintf(newstr, \"%s%d\", str, num);\n"
@@ -26,7 +26,7 @@ static char * strIntCatFunction = "char * _strintconcat(char * str, int num, int
                                 "\treturn newstr;\n"
                             "}\n";
 
-static char * strIntMultFunction = "char * _strintmult(char * str, int num) {\n"
+static char * strIntMultFunction = "char * multiplyString(char * str, int num) {\n"
                                     "\tint len = strlen(str);\n"
                                     "\tchar * newstr = malloc(len * num + 1);\n"
                                     "\tnewstr[0] = 0;\n"
@@ -35,12 +35,12 @@ static char * strIntMultFunction = "char * _strintmult(char * str, int num) {\n"
                                     "\treturn newstr;\n"
                                     "}\n";
 
-static char * getCharToVar = "char * _getchar_to_var() {\n"
+static char * getCharToVar = "char * readOneChar() {\n"
                                 "\tchar * str = malloc(2);\n"
                                 "\tstr[0] = getchar();\n"
                                 "\tstr[1] = 0;\n"
                                 "\treturn str;\n"
-                                "}\n";
+                                "}\n\n\n";
 
 void argParse(int argc, char *argv[], struct op_values * op)
 {

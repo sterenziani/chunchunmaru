@@ -1,4 +1,5 @@
 #include "operations.h"
+#include "music.h"
 #include <string.h>
 
 #define MAX_VAR 100
@@ -8,12 +9,11 @@ typedef enum operations {SUM, SUB, MULT, DIV} operation;
 typedef struct var {
     char* name;
     int type;
-    int scope;
+    char constant;
 } var;
 
 var varTable[MAX_VAR];
 int varTableIndex = 0;
-int currScope = 0;
 int vars = 0;
 
 Node * intOperation(Node* n1, Node* n2, operation op);
@@ -27,7 +27,7 @@ Node* expSum(Node* n1, Node* n2)
     else if (n1->type == TYPE_TEXT && n2->type == TYPE_TEXT)
     {
         ret = newNode(TYPE_TEXT, NULL);
-        append(ret, newNode(TYPE_LITERAL, "_strconcat("));
+        append(ret, newNode(TYPE_LITERAL, "concatStrings("));
         append(ret, n1);
         append(ret, newNode(TYPE_LITERAL, ", "));
         append(ret, n2);
@@ -44,11 +44,15 @@ Node* expSum(Node* n1, Node* n2)
             sort = ", -1)";
         }
         ret = newNode(TYPE_TEXT, NULL);
-        append(ret, newNode(TYPE_LITERAL, "_strintconcat("));
+        append(ret, newNode(TYPE_LITERAL, "concatIntString("));
         append(ret, n1);
         append(ret, newNode(TYPE_LITERAL, ", "));
         append(ret, n2);
         append(ret, newNode(TYPE_LITERAL, sort));
+    }
+    else if(n1->type == TYPE_NOTE || n2->type == TYPE_NOTE)
+    {
+        yyerror("No operations are allowed between notes and any other type... yet!\n");
     }
     else
         yyerror("Sum between incompatible types.\n");
@@ -79,11 +83,15 @@ Node* expMult(Node * n1, Node * n2)
             n2 = aux;
         }
         ret = newNode(TYPE_TEXT, NULL);
-        append(ret, newNode(TYPE_LITERAL, "_strintmult("));
+        append(ret, newNode(TYPE_LITERAL, "multiplyString("));
         append(ret, n1);
         append(ret, newNode(TYPE_LITERAL, ", "));
         append(ret, n2);
         append(ret, newNode(TYPE_LITERAL, ")"));
+    }
+    else if(n1->type == TYPE_NOTE || n2->type == TYPE_NOTE)
+    {
+        yyerror("No operations are allowed between notes and any other type... yet!\n");
     }
     else
         yyerror("Multiplication between incompatible types.\n");
@@ -125,28 +133,18 @@ Node * intOperation(Node * n1, Node * n2, operation op)
     return ret;
 }
 
-int addVar(char * name, int type)
+int addVar(char * name, int type, char constant)
 {
     if (varTableIndex == MAX_VAR)
       return -1;
     varTable[varTableIndex].name = name;
     varTable[varTableIndex].type = type;
-    varTable[varTableIndex].scope = currScope;
+    varTable[varTableIndex].constant = constant;
     varTableIndex++;
     return 1;
 }
 
-int isInCurrentScope(char * varName)
-{
-    for (int i = varTableIndex - 1; i >= 0 && varTable[i].scope == currScope; i--)
-    {
-        if (strcmp(varName, varTable[i].name) == 0)
-            return 1;
-    }
-    return 0;
-}
-
-int getType(char * varName)
+int getType(char* varName)
 {
     for (int i = varTableIndex - 1; i >= 0; i--)
     {
@@ -156,14 +154,12 @@ int getType(char * varName)
     return -1;
 }
 
-void openScope()
+int isConst(char* varName)
 {
-    currScope++;
-}
-
-void closeScope()
-{
-    currScope--;
-    while(varTableIndex > 0 && varTable[varTableIndex - 1].scope > currScope)
-        varTableIndex--;
+    for (int i = varTableIndex - 1; i >= 0; i--)
+    {
+        if (strcmp(varName, varTable[i].name) == 0)
+            return varTable[i].constant;
+    }
+    return -1;
 }

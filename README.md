@@ -13,3 +13,5 @@ Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug d
 
 4) Una vez listo, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje
 > ./cflat example
+
+El and toma precedencia antes que el or
