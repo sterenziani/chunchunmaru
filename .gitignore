@@ -6,3 +6,4 @@ lex.yy.c
 y.tab.c
 y.tab.h
 compiler_mid.tmp.c
+pulseaudio

@@ -49,7 +49,6 @@ start
 	print x
 	print "\n"
 
-	print localvar
 	play 11F
 	play 11A
 	play 21B
