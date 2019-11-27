@@ -34,7 +34,7 @@ void append(Node * parent, Node * node) {
 }
 
 void printInorder(Node * node) {
-		if(node->type == TYPE_NOTE && node->value != NULL && strcmp(node->value, "note "))
+		if(node->type == TYPE_NOTE && node->value != NULL && strcmp(node->value, "note ") != 0)
 		{
 			char length = node->value[0];
 			switch(length)

@@ -21,3 +21,4 @@ Mostrar que hay alcance de las variables, no son globales
 Mostrar que se pueden hacer comentarios
 Mostrar la suma de tipos
 Mostrar que se puede imprimir el valor de una nota
+Mostrar que se puede sumarle y restarle enteros a una nota

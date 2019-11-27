@@ -135,7 +135,6 @@ note createNote(unsigned rate, int ms)
     case REDONDA: n.desc[0] = '4';
                   break;
   }
-  printf("La longitud es %d. Yo la convierto a %c\t", ms, n.desc[0]);
   if(rate == REST)
   {
     n.desc[1] = '?';
@@ -180,101 +179,114 @@ note createNote(unsigned rate, int ms)
   else
     n.desc[3] = 0;
   n.desc[4] = 0;
-  printf("Queda %s\n", n.desc);
   return n;
 }
 
 void shiftNote(char* n, int offset, char* ret)
 {
-  char octave = n[1]+3;
+  char octave = n[1]+3-'0';
   char key = n[2];
   char sharp = (n[3] == '#')?1:0;
   if(key == 'R')
     ret[0] = 0;
 
-  if(offset > 0)
+  while(offset > 0)
   {
-    for(int i=0; i < offset; i++)
-    {
-      if(n[2] == B5)
+      if(key == 'B' && octave == 5)
       {
         ret[0] = 0;
         return;
       }
 
-      if(ret[2] == C3 || ret[2] == C4 || ret[2] == C5)
+      if((key == 'C' || key == 'D' || key == 'F' || key == 'G' || key == 'A') && !sharp)
       {
-        ret[2] = 'C';
-        ret[3] = '#';
+        sharp = 1;
       }
-      else if(ret[2] == D3 || ret[2] == D4 || ret[2] == D5)
+      else if(key == 'E')
       {
-        ret[2] = 'F';
-        ret[3] = '#';
+        key = 'F';
       }
-      else if(ret[2] == E3 || ret[2] == E4 || ret[2] == E5)
+      else if(key == 'B')
       {
-        ret[2] = 'F';
-        ret[3] = 0;
+        octave++;
+        key = 'C';
       }
-      else if(ret[2] == F3 || ret[2] == F4 || ret[2] == F5)
+      else if(key == 'C' && sharp)
       {
-        ret[2] = 'F';
-        ret[3] = '#';
+        key = 'D';
+        sharp = 0;
       }
-      else if(ret[2] == G3 || ret[2] == G4 || ret[2] == G5)
+      else if(key == 'D' && sharp)
       {
-        ret[2] = 'G';
-        ret[3] = '#';
+        key = 'E';
+        sharp = 0;
       }
-      else if(ret[2] == A3 || ret[2] == A4 || ret[2] == A5)
+      else if(key == 'F' && sharp)
       {
-        ret[2] = 'A';
-        ret[3] = '#';
+        key = 'G';
+        sharp = 0;
       }
-      else if(ret[2] == B3 || ret[2] == B4)
+      else if(key == 'G' && sharp)
       {
-        ret[1] = n[1]+1;
-        ret[2] = 'C';
-        ret[3] = 0;
+        key = 'A';
+        sharp = 0;
       }
-
-      if(n[2] == C3_sharp || n[2] == C4_sharp || n[2] == C5_sharp)
+      else if(key == 'A' && sharp)
       {
-        ret[2] = 'D';
-        ret[3] = 0;
+        key = 'B';
+        sharp = 0;
       }
-      else if(ret[2] == D3_sharp || ret[2] == D4_sharp || ret[2] == D5_sharp)
-      {
-        ret[2] = 'E';
-        ret[3] = 0;
-      }
-      else if(ret[2] == F3_sharp || ret[2] == F4_sharp || ret[2] == F5_sharp)
-      {
-        ret[2] = 'G';
-        ret[3] = 0;
-      }
-      else if(ret[2] == G3_sharp || ret[2] == G4_sharp || ret[2] == G5_sharp)
-      {
-        ret[2] = 'A';
-        ret[3] = 0;
-      }
-      else if(ret[2] == A3_sharp || ret[2] == A4_sharp || ret[2] == A5_sharp)
-      {
-        ret[2] = 'B';
-        ret[3] = 0;
-      }
-    }
+      offset--;
   }
-  else
+  while(offset < 0)
   {
-    for (int i = 0; i < offset; i++)
+    if(key == 'C' && octave == 3)
     {
-
+      ret[0] = 0;
+      return;
     }
+    if(key == 'C' && !sharp)
+    {
+      key = 'B';
+      octave--;
+    }
+    else if(key == 'D' && !sharp)
+    {
+      key = 'C';
+      sharp = 1;
+    }
+    else if(key == 'E')
+    {
+      key = 'D';
+      sharp = 1;
+    }
+    else if(key == 'F' && !sharp)
+    {
+      key = 'E';
+    }
+    else if(key == 'G' && !sharp)
+    {
+      key = 'F';
+      sharp = 1;
+    }
+    else if(key == 'A' && !sharp)
+    {
+      key = 'G';
+      sharp = 1;
+    }
+    else if(key == 'B')
+    {
+      key = 'A';
+      sharp = 1;
+    }
+    else if((key == 'C' || key == 'D' || key == 'F' || key == 'G' || key == 'A') && sharp)
+    {
+      sharp = 0;
+    }
+    offset++;
   }
   ret[0] = n[0];
-  ret[1] = octave-3;
+  ret[1] = octave-3+'0';
   ret[2] = key;
   if(!sharp)
     ret[3] = 0;

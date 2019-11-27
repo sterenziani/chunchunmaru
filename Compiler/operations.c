@@ -25,39 +25,66 @@ Node* expSum(Node* n1, Node* n2)
 {
     Node* ret;
     if (n1->type == TYPE_NUM && n2->type == TYPE_NUM)
-        ret = intOperation(n1, n2, SUM);
+      ret = intOperation(n1, n2, SUM);
     else if (n1->type == TYPE_TEXT && n2->type == TYPE_TEXT)
     {
-        ret = newNode(TYPE_TEXT, NULL);
-        append(ret, newNode(TYPE_LITERAL, "concatStrings("));
-        append(ret, n1);
-        append(ret, newNode(TYPE_LITERAL, ", "));
-        append(ret, n2);
-        append(ret, newNode(TYPE_LITERAL, ")"));
+      ret = newNode(TYPE_TEXT, NULL);
+      append(ret, newNode(TYPE_LITERAL, "concatStrings("));
+      append(ret, n1);
+      append(ret, newNode(TYPE_LITERAL, ", "));
+      append(ret, n2);
+      append(ret, newNode(TYPE_LITERAL, ")"));
     }
     else if ((n1->type == TYPE_TEXT && n2->type == TYPE_NUM) || (n1->type == TYPE_NUM && n2->type == TYPE_TEXT))
     {
-        char * sort = ", 1)";
-        if (n1->type == TYPE_NUM)
-        {
-            Node * aux = n1;
-            n1 = n2;
-            n2 = aux;
-            sort = ", -1)";
-        }
-        ret = newNode(TYPE_TEXT, NULL);
-        append(ret, newNode(TYPE_LITERAL, "concatIntString("));
-        append(ret, n1);
-        append(ret, newNode(TYPE_LITERAL, ", "));
-        append(ret, n2);
-        append(ret, newNode(TYPE_LITERAL, sort));
+      char* sort = ", 1)";
+      if (n1->type == TYPE_NUM)
+      {
+          Node* aux = n1;
+          n1 = n2;
+          n2 = aux;
+          sort = ", -1)";
+      }
+      ret = newNode(TYPE_TEXT, NULL);
+      append(ret, newNode(TYPE_LITERAL, "concatIntString("));
+      append(ret, n1);
+      append(ret, newNode(TYPE_LITERAL, ", "));
+      append(ret, n2);
+      append(ret, newNode(TYPE_LITERAL, sort));
     }
-    else if(n1->type == TYPE_NOTE || n2->type == TYPE_NOTE)
+    else if((n1->type == TYPE_NOTE && n2->type == TYPE_NUM) || (n1->type == TYPE_NUM && n2->type == TYPE_NOTE))
     {
-        yyerror("No operations are allowed between notes and any other type... yet!\n");
+      if (n1->type == TYPE_NUM)
+      {
+          Node* aux = n1;
+          n1 = n2;
+          n2 = aux;
+      }
+      shiftNote(n1->value, atoi(n2->value), n1->value);
+      if(n1->value[0] == 0)
+        yyerror("Addition to note goes over available note range.\n");
+      ret = newNode(TYPE_NOTE, n1->value);
+    }
+    else if(n1->type == TYPE_NOTE && n2->type == TYPE_TEXT)
+    {
+      ret = newNode(TYPE_TEXT, NULL);
+      append(ret, newNode(TYPE_LITERAL, "concatStrings(\""));
+      append(ret, newNode(TYPE_TEXT, n1->value));
+      append(ret, newNode(TYPE_LITERAL, "\", "));
+      append(ret, n2);
+      append(ret, newNode(TYPE_LITERAL, ")"));
+    }
+    else if(n1->type == TYPE_TEXT && n2->type == TYPE_NOTE)
+    {
+      ret = newNode(TYPE_TEXT, NULL);
+      append(ret, newNode(TYPE_LITERAL, "concatStrings(\""));
+      append(ret, n1);
+      append(ret, newNode(TYPE_LITERAL, "\", "));
+      append(ret, newNode(TYPE_TEXT, n1->value));
+      append(ret, newNode(TYPE_LITERAL, ")"));
     }
     else
-        yyerror("Sum between incompatible types.\n");
+      yyerror("Sum between incompatible types.\n");
     return ret;
 }
 
@@ -66,6 +93,19 @@ Node* expSub(Node * n1, Node * n2)
     Node* ret;
     if (n1->type == TYPE_NUM && n2->type == TYPE_NUM)
         ret = intOperation(n1, n2, SUB);
+    else if((n1->type == TYPE_NOTE && n2->type == TYPE_NUM) || (n1->type == TYPE_NUM && n2->type == TYPE_NOTE))
+    {
+      if (n1->type == TYPE_NUM)
+      {
+          Node* aux = n1;
+          n1 = n2;
+          n2 = aux;
+      }
+      shiftNote(n1->value, -atoi(n2->value), n1->value);
+      if(n1->value[0] == 0)
+        yyerror("Substraction to note goes over available note range.\n");
+      ret = newNode(TYPE_NOTE, n1->value);
+    }
     else
         yyerror("Substraction between incompatible types.\n");
     return ret;
@@ -90,10 +130,6 @@ Node* expMult(Node * n1, Node * n2)
         append(ret, newNode(TYPE_LITERAL, ", "));
         append(ret, n2);
         append(ret, newNode(TYPE_LITERAL, ")"));
-    }
-    else if(n1->type == TYPE_NOTE || n2->type == TYPE_NOTE)
-    {
-        yyerror("No operations are allowed between notes and any other type... yet!\n");
     }
     else
         yyerror("Multiplication between incompatible types.\n");

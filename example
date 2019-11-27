@@ -2,11 +2,18 @@ start
 	num i = 5
 	text j = "a"
 	text a = j*i
-	print a
+	print a +"\n"
+
+	text x = 22G# - 12 + " key\n"
+	print x
 
 	const num fijo = 7
-	print fijo
 	// fijo = 4
+
+	note y = 22G# - 12
+	if 11E < y
+		print "Yay\n"
+	end if
 
 	play 30R
 
@@ -36,5 +43,4 @@ start
 
 	print "\n\n===TO DO LIST===:\n"
 	print "\tRemove flags in compiler\n"
-	print "\tImplement math operations for notes\n\t\tKey + int shifts that many keys to the right\n\t\tKey * int speeds up the length if possible\n\t\tKey with key is invalid\n"
 end

@@ -60,7 +60,7 @@
 		LEVELUP:																																		{ increaseLevel(); };
 		LEVELDOWN: 																																	{ decreaseLevel(); };
 
-		
+
 
     INSTRUCTION:print EXPRESSION endline                                        				{ $$ = newNode(TYPE_EMPTY, NULL);
 				                                                                                  if ($2->type == TYPE_TEXT)
@@ -186,6 +186,10 @@
                                                                                     append($$, $2);
                                                                                     append($$, newNode(TYPE_LITERAL, "0"));
                                                                                   }
+																																									else
+																																									{
+																																										yyerror("Can't compare different types.\n");
+																																									}
                                                                                 };
 
 
