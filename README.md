@@ -15,3 +15,9 @@ Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug d
 > ./cflat example
 
 El and toma precedencia antes que el or
+
+Mostrar las const
+Mostrar que hay alcance de las variables, no son globales
+Mostrar que se pueden hacer comentarios
+Mostrar la suma de tipos
+Mostrar que se puede imprimir el valor de una nota

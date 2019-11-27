@@ -11,5 +11,7 @@ Node* expDiv(Node* n1, Node* n2);
 int addVar(char* name, int type, char constant);
 int getType(char* varName);
 int isConst(char* varName);
+void increaseLevel();
+void decreaseLevel();
 
 #endif

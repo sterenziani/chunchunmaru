@@ -6,10 +6,10 @@
 
 #define LOG_FILE	"sound.log"
 
-#define CORCHEA		20
-#define NEGRA		  40
-#define BLANCA		80
-#define REDONDA		160
+#define CORCHEA		10
+#define NEGRA		  20
+#define BLANCA		40
+#define REDONDA		80
 
 #define REST    0
 #define C2			6541

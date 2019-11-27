@@ -2,79 +2,39 @@ start
 	num i = 5
 	text j = "a"
 	text a = j*i
-	print a +"\n"
+	print a
 
-	const num fijo = 4
+	const num fijo = 7
 	print fijo
+	// fijo = 4
 
-	if i==5
-		text localvar = "Yo solo deberia existir en este if!\n"
-		print "i is currently 5\n\n"
-	else if i == 4
-		print "Secreto\n"
-	else
-		print "Holi! :)\n"
-	end if
+	play 30R
 
-	text nombre = "Paula"
-	if nombre < "Zelda"
-		print "Alfabeticamente, " +nombre +" viene antes que Zelda\n"
-		if nombre < "Eugenio"
-			print "Y antes que Nico tambien!\n"
-		else if nombre < "Nico"
-			print nombre +" no viene antes que Nico pero sí antes que Pedro\n"
-		else if nombre < "Santi"
-			print nombre +" viene antes que Santi\n"
-		else
-			print "Bueno, viene antes que Zelda al menos...\n"
-		end if
-	end if
+	play 21F
+	play 21A
+	play 31B
+	play 21F
+	play 21A
+	play 31B
 
-	until i == 0
-		i = i - 1
-		print "i is now " + i + "!\n"
-		play 11A#
-	end loop
-
-	while i < 5
-		i = i +2
-		print "i is now " +i +"!!!\n"
-
-
-	end loop
-	play 40R
-
-
-	note x = 22C#
-	print x
-	print "\n"
-
-	play 11F
-	play 11A
+	play 21F
+	play 21A
 	play 21B
-	play 11F
-	play 11A
+	play 22E
+	play 32D
+
 	play 21B
-
-	play 11F
-	play 11A
-	play 11B
-	play 12E
-	play 22D
-
-	play 11B
-	play 12C
-	play 11B
-	play 11G
+	play 22C
+	play 21B
+	play 21G
 	play 41E
 
-	play 11D
-	play 11E
-	play 11G
+	play 21D
+	play 21E
+	play 21G
 	play 41E
 
 	print "\n\n===TO DO LIST===:\n"
-	print "\tFix local variables using scope\n"
 	print "\tRemove flags in compiler\n"
 	print "\tImplement math operations for notes\n\t\tKey + int shifts that many keys to the right\n\t\tKey * int speeds up the length if possible\n\t\tKey with key is invalid\n"
 end

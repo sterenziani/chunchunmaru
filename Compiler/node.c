@@ -42,7 +42,7 @@ void printInorder(Node * node) {
 				case '1': length = CORCHEA; break;
 				case '2': length = NEGRA; break;
 				case '3': length = BLANCA; break;
-				case '4': length = BLANCA; break;
+				case '4': length = REDONDA; break;
 			};
 			char octave = node->value[1] + 3;
 			char key = node->value[2];

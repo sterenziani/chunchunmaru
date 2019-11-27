@@ -10,10 +10,12 @@ typedef struct var {
     char* name;
     int type;
     char constant;
+    int level;
 } var;
 
 var varTable[MAX_VAR];
 int varTableIndex = 0;
+int currentLevel = 0;
 int vars = 0;
 
 Node * intOperation(Node* n1, Node* n2, operation op);
@@ -140,6 +142,7 @@ int addVar(char * name, int type, char constant)
     varTable[varTableIndex].name = name;
     varTable[varTableIndex].type = type;
     varTable[varTableIndex].constant = constant;
+    varTable[varTableIndex].level = currentLevel;
     varTableIndex++;
     return 1;
 }
@@ -162,4 +165,16 @@ int isConst(char* varName)
             return varTable[i].constant;
     }
     return -1;
+}
+
+void increaseLevel()
+{
+  currentLevel++;
+}
+
+void decreaseLevel()
+{
+  currentLevel--;
+  while(varTableIndex > 0 && varTable[varTableIndex-1].level > currentLevel)
+    varTableIndex--;
 }

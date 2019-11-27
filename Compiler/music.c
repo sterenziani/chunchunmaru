@@ -124,7 +124,18 @@ note createNote(unsigned rate, int ms)
   note n;
   n.frequency = rate;
   n.length = ms;
-  n.desc[0] = ms/20 + '0';
+  switch(ms)
+  {
+    case CORCHEA: n.desc[0] = '1';
+                  break;
+    case NEGRA: n.desc[0] = '2';
+                  break;
+    case BLANCA: n.desc[0] = '3';
+                  break;
+    case REDONDA: n.desc[0] = '4';
+                  break;
+  }
+  printf("La longitud es %d. Yo la convierto a %c\t", ms, n.desc[0]);
   if(rate == REST)
   {
     n.desc[1] = '?';
@@ -169,6 +180,7 @@ note createNote(unsigned rate, int ms)
   else
     n.desc[3] = 0;
   n.desc[4] = 0;
+  printf("Queda %s\n", n.desc);
   return n;
 }
 

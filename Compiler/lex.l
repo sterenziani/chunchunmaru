@@ -15,7 +15,7 @@ digit       [0-9]
 number      {digit}+
 n_length    [1-4]
 octave      [0-2]
-key         ([rR]|[a-gA-G]|[acdfgACDFG]#)
+key         ([rR]|[acdfgACDFG]#?|[eEbB])
 note        {n_length}{octave}{key}
 newline		  [\n]
 space       [ \t]
@@ -28,7 +28,9 @@ varname     {alpha}({alpha}|{digit}|'_')*
 "play"      {return play;}
 "="			    {return isnow;}
 "\n"        {lines++; return endline;}
+"//".*			{;}
 "const"			{return const_token;}
+"#"					{ yyerror("Invalid note value."); }
 
 "if"			  {return if_token;}
 "else"		  {return else_token;}
@@ -72,7 +74,7 @@ varname     {alpha}({alpha}|{digit}|'_')*
               return text_c;
             }
 
-{note}      { char* str = malloc(strlen(yytext) + 1);
+{note}	    { char* str = malloc(strlen(yytext) + 1);
               strcpy(str, yytext);
               yylval.value = str;
               return note_c;
