@@ -1,5 +1,7 @@
 PULSE_DIR=$(shell pwd)/pulseaudio
-all:
+all: openal pulseaudio cflat
+	
+cflat:
 	cd ./Compiler; \
 	yacc -d yacc.y; \
 	lex lex.l; \
