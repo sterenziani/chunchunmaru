@@ -10,37 +10,27 @@ struct op_values {
     char * input;
 } op;
 
-static char * strCatFunction = "char * concatStrings(char * str1, char * str2) {\n"
-                                "\tchar * newstr = malloc(strlen(str1) + strlen(str2) + 1);\n"
-                                "\tstrcpy(newstr, str1);\n"
-                                "\tstrcat(newstr, str2);\n"
-                                "\treturn newstr;\n"
-                            "}\n";
-
-static char * strIntCatFunction = "char * concatIntString(char * str, int num, int sort) {\n"
-                                "\tchar * newstr = malloc(strlen(str) + 20);\n"
-                                "\tif (sort > 0)\n"
-                                "\t\tsprintf(newstr, \"%s%d\", str, num);\n"
-                                "\telse\n"
-                                "\t\tsprintf(newstr, \"%d%s\", num, str);\n"
-                                "\treturn newstr;\n"
-                            "}\n";
-
-static char * strIntMultFunction = "char * multiplyString(char * str, int num) {\n"
-                                    "\tint len = strlen(str);\n"
-                                    "\tchar * newstr = malloc(len * num + 1);\n"
-                                    "\tnewstr[0] = 0;\n"
-                                    "\tfor (int i = 0; i < num; i++)\n"
-                                    "\t\tstrcpy(newstr + i * len, str);\n"
-                                    "\treturn newstr;\n"
-                                    "}\n";
-
-static char * getCharToVar = "char * readOneChar() {\n"
-                                "\tchar * str = malloc(2);\n"
-                                "\tstr[0] = getchar();\n"
-                                "\tstr[1] = 0;\n"
-                                "\treturn str;\n"
-                                "}\n\n\n";
+static char * functions =     "static struct termios old, current;\n\n"
+                              "void initTermios(int echo){\n"
+                                "tcgetattr(0, &old);\ncurrent = old;\ncurrent.c_lflag &= ~ICANON;\n"
+                                "if(echo){\ncurrent.c_lflag |= ECHO;\n"
+                                "}\nelse{\ncurrent.c_lflag &= ~ECHO;}\n"
+                                "tcsetattr(0, TCSANOW, &current);\n}\n\n"
+                              "void resetTermios(void){\ntcsetattr(0, TCSANOW, &old);\n}\n\n"
+                              "char getch_(int echo){\nchar ch;\ninitTermios(echo);\nch = getchar();\nresetTermios();\nreturn ch;\n}\n\n"
+                              "char getch(void){\nreturn getch_(0);\n}\n\n"
+                              "char * readOneChar() {\n"
+                                "char * str = malloc(2);\nstr[0] = getch();\n"
+                                "str[1] = 0;\nreturn str;\n}\n\n"
+                              "char* concatStrings(char * str1, char * str2){\n"
+                                "char* newstr = malloc(strlen(str1) + strlen(str2) + 1);\nstrcpy(newstr, str1);\n"
+                                "strcat(newstr, str2);\nreturn newstr;}\n\n"
+                              "char * concatIntString(char * str, int num, int sort) {\n"
+                                "char * newstr = malloc(strlen(str) + 20);\nif (sort > 0)\nsprintf(newstr, \"%s%d\", str, num);\n"
+                                "else\nsprintf(newstr, \"%d%s\", num, str);\nreturn newstr;\n}\n"
+                              "char * multiplyString(char * str, int num) {\n\n"
+                                "int len = strlen(str);\nchar * newstr = malloc(len * num + 1);\nnewstr[0] = 0;\n"
+                                "for (int i = 0; i < num; i++)\nstrcpy(newstr + i * len, str);\nreturn newstr;}\n\n\n";
 
 void argParse(int argc, char *argv[], struct op_values * op)
 {
@@ -84,12 +74,10 @@ void printHeaders() {
     fprintf(tmpFile, "#include <time.h>\n");
     fprintf(tmpFile, "#include <unistd.h>\n");
     fprintf(tmpFile, "#include <string.h>\n");
+    fprintf(tmpFile, "#include <termios.h>\n");
+    fprintf(tmpFile, "#include <stdio.h>\n");
 		fprintf(tmpFile, "#include \"Compiler/music.h\"\n\n");
-
-    fprintf(tmpFile, "%s" , strCatFunction);
-    fprintf(tmpFile, "%s" , strIntCatFunction);
-    fprintf(tmpFile, "%s" , strIntMultFunction);
-    fprintf(tmpFile, "%s" , getCharToVar);
+    fprintf(tmpFile, "%s" , functions);
 }
 
 void compileC(char * outputFile, int debug) {

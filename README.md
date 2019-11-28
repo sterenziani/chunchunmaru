@@ -12,13 +12,15 @@ Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug d
 > make all
 
 4) Una vez listo, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje
-> ./cflat example
+> ./cflat Examples/example
 
-El and toma precedencia antes que el or
+TO DO:
+- Hacer que se puedan sumar **variabes** de tipo *note* y numeros, no solo valores de tipo *note*
+- Eliminar el flag al compilar que crea el archivo C traducido
 
-Mostrar las const
-Mostrar que hay alcance de las variables, no son globales
-Mostrar que se pueden hacer comentarios
-Mostrar la suma de tipos
-Mostrar que se puede imprimir el valor de una nota
-Mostrar que se puede sumarle y restarle enteros a una nota
+Fun facts:
+- El **and** toma precedencia sobre el **or**
+
+Recursos para el informe. Lenguaje de inspiración y de donde sacamos el getchar para el teclado:
+https://github.com/atharos1/Cpanish
+https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux

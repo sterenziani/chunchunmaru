@@ -1,0 +1,33 @@
+start
+	// This program will test the following features of the C-Flat language:
+	//		Comparing strings
+	//		Comparing notes
+
+	text name = "Rodrigo"
+	if name < "Ana"
+		print "Alphabetically, your name comes before Ana!\n"
+	else if name < "Eugenio"
+		print "Alphabetically, your name comes before Eugenio!\n"
+	else if name < "Juan"
+		print "Alphabetically, your name comes before Juan!\n"
+	else if name < "Paula"
+		print "Alphabetically, your name comes before Paula!\n"
+	else if name < "Santiago"
+		print "Alphabetically, your name comes before Santiago!\n"
+	else
+		print "Alphabetically, your name comes last on our list!\n"
+	end if
+
+	print "\n\n"
+
+	note n = 31G#
+	if n < 12C and n < 42C
+		print "Your note is not on the third octave!\n"
+	end if
+	if n > 10B and n > 20B
+		print "Your not is not on the first octave!\n"
+	end if
+	if n == 31G# and n > 21G#
+		print "Your note is longer than a quarter note (crotchet)\n"
+	end if
+end

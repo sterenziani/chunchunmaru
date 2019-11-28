@@ -77,11 +77,11 @@ Node* expSum(Node* n1, Node* n2)
     else if(n1->type == TYPE_TEXT && n2->type == TYPE_NOTE)
     {
       ret = newNode(TYPE_TEXT, NULL);
-      append(ret, newNode(TYPE_LITERAL, "concatStrings(\""));
+      append(ret, newNode(TYPE_LITERAL, "concatStrings("));
       append(ret, n1);
-      append(ret, newNode(TYPE_LITERAL, "\", "));
-      append(ret, newNode(TYPE_TEXT, n1->value));
-      append(ret, newNode(TYPE_LITERAL, ")"));
+      append(ret, newNode(TYPE_LITERAL, ", \""));
+      append(ret, newNode(TYPE_TEXT, n2->value));
+      append(ret, newNode(TYPE_LITERAL, "\")"));
     }
     else
       yyerror("Sum between incompatible types.\n");

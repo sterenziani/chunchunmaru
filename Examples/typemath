@@ -1,0 +1,15 @@
+start
+	// This program will test the following features of the C-Flat language:
+	//		Adding different types to create a single string
+	//		Adding numerical values to a note
+
+	text name = "Rodrigo"
+	print "Hello " +name +". Let's duplicate your name: " +name*2
+	print "\nLet's try that again! " +2*name
+	print "\nOkay, multiplication works. And adding strings works as well, from the looks of it!\n\n"
+
+	print "In case you're curious, you can add anything!\n"
+	print "If I have a B key for the second octave, we could represent that as " + 21B
+	print "\nAnd if I want to move my finger four keys to the right on the keyboard, we'd get a D# on the next octave\n"
+	print "Or in other words, we'd get " + (21B + 4) +"\n"
+end

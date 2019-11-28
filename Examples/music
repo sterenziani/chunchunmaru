@@ -1,0 +1,25 @@
+start
+	play 21F
+	play 21A
+	play 31B
+	play 21F
+	play 21A
+	play 31B
+
+	play 21F
+	play 21A
+	play 21B
+	play 22E
+	play 32D
+
+	play 21B
+	play 22C
+	play 21B
+	play 21G
+	play 41E
+
+	play 21D
+	play 21E
+	play 21G
+	play 41E
+end

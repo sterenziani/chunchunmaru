@@ -26,6 +26,7 @@ varname     {alpha}({alpha}|{digit}|'_')*
 "end"       {return end;}
 "print"		  {return print;}
 "play"      {return play;}
+"read"			{return read_token;}
 "="			    {return isnow;}
 "\n"        {lines++; return endline;}
 "//".*			{;}
@@ -65,19 +66,19 @@ varname     {alpha}({alpha}|{digit}|'_')*
 -?{number}	{ char* str = malloc(strlen(yytext) + 1);
 						  strcpy(str, yytext);
 							yylval.value = str;
-							return num_c;
+							return num_value;
             }
 
 \"[^"]*\"   { char* str = malloc(strlen(yytext) + 1);
               strcpy(str, yytext);
               yylval.value = str;
-              return text_c;
+              return text_value;
             }
 
 {note}	    { char* str = malloc(strlen(yytext) + 1);
               strcpy(str, yytext);
               yylval.value = str;
-              return note_c;
+              return note_value;
             }
 
 {varname}   {	char* str = malloc(strlen(yytext) + 1);

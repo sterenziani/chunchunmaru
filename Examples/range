@@ -1,0 +1,15 @@
+start
+	// This program will test the following features of the C-Flat language:
+	//		Creating constants
+	//		Restricting the range of a variable within loops and ifs
+
+	const num x1 = 2
+	// x1 = 3
+	print "I commented the previous line because you can't change a constant.\n"
+
+	if 1 == 2
+		num x2 = 42
+	end if
+	// print x2
+	print "I commented the previous line because I can't seem to find the meaning of life.\n"
+end

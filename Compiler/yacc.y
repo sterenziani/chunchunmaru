@@ -16,8 +16,8 @@
 }
 
 /* Tokens */
-%token          start end print play const_token isnow endline if_token else_token endif while_token until endloop and or num_t text_t note_t plus minus times div_token open_p close_p equals ge le lt gt dif
-%token<value>   num_c text_c note_c id
+%token          start end print play read_token const_token isnow endline if_token else_token endif while_token until endloop and or num_t text_t note_t plus minus times div_token open_p close_p equals ge le lt gt dif
+%token<value>   num_value text_value note_value id
 %type<node>     PROGRAM CODE INSTRUCTION ELIF CONDITION EXPRESSION TERM COMPARATOR TYPE DECLARATION ASSIGNMENT REASSIGNMENT LEVELUP LEVELDOWN
 %start          PROGRAM
 
@@ -220,9 +220,10 @@
 
 
 
-    TERM:         text_c                                                        { $$ = newNode(TYPE_TEXT, $1); }
-    				      | num_c                                                       { $$ = newNode(TYPE_NUM, $1); }
-                  | note_c                                                      { $$ = newNode(TYPE_NOTE, $1); }
+    TERM:         text_value                                                    { $$ = newNode(TYPE_TEXT, $1); }
+    				      | num_value                                                   { $$ = newNode(TYPE_NUM, $1); }
+                  | note_value                                                  { $$ = newNode(TYPE_NOTE, $1); }
+									| read_token																									{ $$ = newNode(TYPE_TEXT, "readOneChar()");}
                   | id                                                          { int type = getType($1);
 																																									if (type == -1)
 																																										yyerror("Undeclared variable or out of range.\n");

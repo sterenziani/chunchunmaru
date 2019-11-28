@@ -1,0 +1,53 @@
+start
+	// This program will test the following features of the C-Flat language:
+	//		Reading input from keyboard
+	//		Playing sounds
+
+	text c = "0"
+	print "\nUse your keyboard to play the piano!\nTip: Press G G H G K J G G H G L K\n\n"
+	print "\t ____________________\n"
+	print "\t|| | ||| | | ||| | ||\n"
+	print "\t||W|E|||T|Y|U|||O|P||\n"
+	print "\t||_|_|||_|_|_|||_|_||\n"
+	print "\t| | | | | | | | | | |\n"
+	print "\t|A|S|D|F|G|H|J|K|L| |\n"
+	print "\t|_|_|_|_|_|_|_|_|_|_|\n\n\n"
+	print "Press ENTER to exit.\n"
+
+	until(c == "\n")
+		c = read
+		if c == "A" or c == "a"
+			play 21C
+		else if c == "S" or c == "s"
+			play 21D
+		else if c == "D" or c == "d"
+			play 21E
+		else if c == "F" or c == "f"
+			play 21F
+		else if c == "G" or c == "g"
+			play 21G
+		else if c == "H" or c == "h"
+			play 21A
+		else if c == "J" or c == "j"
+			play 21B
+		else if c == "K" or c == "k"
+			play 22C
+		else if c == "L" or c == "l"
+			play 22D
+		else if c == "W" or c == "w"
+			play 21C#
+		else if c == "E" or c == "e"
+			play 21D#
+		else if c == "T" or c == "t"
+			play 21F#
+		else if c == "Y" or c == "y"
+			play 21G#
+		else if c == "U" or c == "u"
+			play 21A#
+		else if c == "O" or c == "o"
+			play 22C#
+		else if c == "P" or c == "p"
+			play 22D#
+		end if
+	end loop
+end

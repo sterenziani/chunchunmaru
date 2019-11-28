@@ -288,6 +288,8 @@ void shiftNote(char* n, int offset, char* ret)
   ret[0] = n[0];
   ret[1] = octave-3+'0';
   ret[2] = key;
+  ret[3] = '#';
+  ret[4] = 0;
   if(!sharp)
     ret[3] = 0;
 }
