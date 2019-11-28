@@ -15,6 +15,7 @@ pulseaudio:
 	NOCONFIGURE=1 ./bootstrap.sh; \
 	./configure --prefix=$(PULSE_DIR) --with-udev-rules-dir='${prefix}/lib/udev/rules.d' --with-systemduserunitdir='${prefix}/etc/systemd/user'
 	cd .tmp/pulseaudio; make install
+	cd pulseaudio/bin; ln -s padsp ../../play
 	rm -rf tmp
 
 openal:
