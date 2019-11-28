@@ -87,5 +87,6 @@ void shiftNote(char* n, int offset, char* ret);
 note createNote(unsigned rate, int ms);
 void playNote(note n);
 int noteCmp(note n1, note n2);
+int isThereMusic();
 
 #endif

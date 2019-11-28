@@ -22,5 +22,5 @@ Fun facts:
 - El **and** toma precedencia sobre el **or**
 
 Recursos para el informe. Lenguaje de inspiración y de donde sacamos el getchar para el teclado:
-https://github.com/atharos1/Cpanish
-https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux
+- https://github.com/atharos1/Cpanish
+- https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux

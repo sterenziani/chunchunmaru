@@ -1,13 +1,11 @@
 PULSE_DIR=$(shell pwd)/pulseaudio
-
-all:
+all: openal pulseaudio cflat
+	
+cflat:
 	cd ./Compiler; \
 	yacc -d yacc.y; \
 	lex lex.l; \
-	gcc -o ../cflat y.tab.c lex.yy.c music.c node.c operations.c compiler.c -L./Libraries/openal-soft/build -lopenal; \
-	gcc -o ../cflat_basic y.tab.c lex.yy.c alt_music.c node.c operations.c compiler.c -L./Libraries/openal-soft/build; \
-	echo "\nIf you saw an error just now, just use cflat_basic to compile your code without music!!!\n"
-
+	gcc -o ../cflat y.tab.c lex.yy.c music.c node.c operations.c compiler.c -L./Libraries/openal-soft/build -lopenal
 
 pulseaudio:
 	mkdir .tmp
@@ -17,6 +15,7 @@ pulseaudio:
 	NOCONFIGURE=1 ./bootstrap.sh; \
 	./configure --prefix=$(PULSE_DIR) --with-udev-rules-dir='${prefix}/lib/udev/rules.d' --with-systemduserunitdir='${prefix}/etc/systemd/user'
 	cd .tmp/pulseaudio; make install
+	ln -s pulseaudio/bin/padsp play
 	rm -rf tmp
 
 openal:
@@ -24,8 +23,7 @@ openal:
 
 clean:
 	rm -f cflat; \
-	rm -f cflat_basic; \
 	cd ./Compiler; \
 	rm -f lex.yy.c; \
 	rm -f y.tab.c; \
-	rm -f y.tab.h;
+rm -f y.tab.h;

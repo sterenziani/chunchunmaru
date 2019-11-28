@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <getopt.h>
 #include "compiler.h"
+#include "music.h"
 
 extern FILE *yyin;
 
@@ -80,9 +81,12 @@ void printHeaders() {
     fprintf(tmpFile, "%s" , functions);
 }
 
-void compileC(char * outputFile, int debug) {
+void compileC(char * outputFile, int debug, int music) {
     char commandBuffer[256];
-    sprintf(commandBuffer, "gcc %s Compiler/music.c -o %s -L./Libraries/openal-soft/build -lopenal", TMP_FILE_NAME, outputFile);
+    if(music)
+      sprintf(commandBuffer, "gcc %s Compiler/music.c -o %s -L./Libraries/openal-soft/build -lopenal", TMP_FILE_NAME, outputFile);
+    else
+      sprintf(commandBuffer, "gcc %s Compiler/alt_music.c -o %s -L./Libraries/openal-soft/build", TMP_FILE_NAME, outputFile);
 
     int gccStatus = system(commandBuffer);
 
@@ -105,6 +109,6 @@ int main(int argc, char *argv[])
     freeResources();
 
     // cambiar de true a false para version final
-    compileC(op.output, 1);
+    compileC(op.output, 0, isThereMusic());
     return 0;
 }
