@@ -60,10 +60,23 @@ Node* expSum(Node* n1, Node* n2)
           n1 = n2;
           n2 = aux;
       }
-      shiftNote(n1->value, atoi(n2->value), n1->value);
-      if(n1->value[0] == 0)
-        yyerror("Addition to note goes over available note range.\n");
-      ret = newNode(TYPE_NOTE, n1->value);
+      if(n1->value == NULL)
+      {
+        ret = newNode(TYPE_NOTE, NULL);
+        append(ret, newNode(TYPE_LITERAL, "shiftNote2("));
+        append(ret, n1);
+        append(ret, newNode(TYPE_LITERAL, ", "));
+        append(ret, n2);
+        append(ret, newNode(TYPE_LITERAL, ")"));
+        return ret;
+      }
+      else
+      {
+        shiftNote(n1->value, atoi(n2->value), n1->value);
+        if(n1->value[0] == 0)
+          yyerror("Addition to note goes over available note range.\n");
+        ret = newNode(TYPE_NOTE, n1->value);
+      }
     }
     else if(n1->type == TYPE_NOTE && n2->type == TYPE_TEXT)
     {
@@ -101,10 +114,23 @@ Node* expSub(Node * n1, Node * n2)
           n1 = n2;
           n2 = aux;
       }
-      shiftNote(n1->value, -atoi(n2->value), n1->value);
-      if(n1->value[0] == 0)
-        yyerror("Substraction to note goes over available note range.\n");
-      ret = newNode(TYPE_NOTE, n1->value);
+      if(n1->value == NULL)
+      {
+        ret = newNode(TYPE_NOTE, NULL);
+        append(ret, newNode(TYPE_LITERAL, "shiftNote2("));
+        append(ret, n1);
+        append(ret, newNode(TYPE_LITERAL, ", -"));
+        append(ret, n2);
+        append(ret, newNode(TYPE_LITERAL, ")"));
+        return ret;
+      }
+      else
+      {
+        shiftNote(n1->value, -atoi(n2->value), n1->value);
+        if(n1->value[0] == 0)
+          yyerror("Addition to note goes over available note range.\n");
+        ret = newNode(TYPE_NOTE, n1->value);
+      }
     }
     else
         yyerror("Substraction between incompatible types.\n");
