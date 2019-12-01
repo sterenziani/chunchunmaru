@@ -37,8 +37,11 @@ void append(Node * parent, Node * node) {
 void freeTree(Node * node,int count) {
 	if(node->children == NULL && node->next == NULL){
 		if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
-			printf("en el free del value post caso base %s\n",node->value);
-			free(node->value);
+			if(strcmp(node->value, "note ") != 0 && strcmp(node->value, "int ") != 0){
+				printf("en el free del value post caso base valor: %d\n",node->type);
+				printf("en el free del value post caso base type: %s\n",node->value);
+				free(node->value);
+			}
 		}
 		printf("valor del nodo antes del free en caso base: %s en llamada %d\n",node->value,count);
 		free(node);
@@ -53,8 +56,11 @@ void freeTree(Node * node,int count) {
 	}
 	//todo lo del sub arbol ya esta
 	if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
-		printf("en el free del value post sub arbol %s\n",node->value);
-		free(node->value);
+		if(strcmp(node->value, "note ") != 0 && strcmp(node->value, "int ") != 0){
+			printf("en el free del value post sub arbol valor: %s\n",node->value);
+			printf("en el free del value post sub arbol type: %d\n",node->type);
+			free(node->value);
+		}
 	}
 	printf("valor del nodo antes del free post llamados recursivos %s en llamada %d\n",node->value,count);
 	free(node);
