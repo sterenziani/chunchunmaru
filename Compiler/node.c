@@ -34,17 +34,17 @@ void append(Node * parent, Node * node) {
     node->parent = parent;
 }
 
-void freeTree(Node * node,int count) {
+void freeTree(Node * node) {
 	if(node->children == NULL && node->next == NULL){
 		free(node);
 		return;
 	}
 	if(node->children != NULL){
-		freeTree(node->children,count + 1);
+		freeTree(node->children);
 	}
 	//si llego aca children es o se hizo null
 	if(node->next != NULL){
-		freeTree(node->next,count + 1);
+		freeTree(node->next);
 	}
 	//todo lo del sub arbol ya esta
 	free(node);
