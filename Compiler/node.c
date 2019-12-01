@@ -33,6 +33,32 @@ void append(Node * parent, Node * node) {
     node->parent = parent;
 }
 
+void freeTree(Node * node,int count) {
+	if(node->children == NULL && node->next == NULL){
+		if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
+			free(node->value);
+		}
+		free(node);
+		return;
+	}
+	if(node->children != NULL){
+		freeTree(node->children,count + 1);
+		//aca tengo que ir liberando la cadena
+		if(node->next != NULL){
+			freeTree(node->next,count + 1);
+		}
+	}
+	//si llego aca children es o se hizo null
+	if(node->next != NULL){
+		freeTree(node->next,count + 1);
+	}
+	//todo lo del sub arbol ya esta
+	if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
+		free(node->value);
+	}
+	free(node);
+}
+
 void printInorder(Node * node) {
 		if(node->type == TYPE_NOTE && node->value != NULL && strcmp(node->value, "note ") != 0)
 		{
