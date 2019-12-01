@@ -36,7 +36,7 @@
                                                                                   append($$, newNode(TYPE_LITERAL, "}"));
                                                                                   printHeaders();
                                                                                   printInorder($$);
-                                                                                  freeTree($$);
+                                                                                  freeTree($$,0);
                                                                                 }
     				    | start end                                                     {
                                                                                   $$ = newNode(TYPE_EMPTY, NULL);

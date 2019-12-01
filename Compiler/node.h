@@ -21,7 +21,7 @@ void append(Node * parent, Node * node);
 
 void printInorder(Node * node);
 
-void freeTree(Node * node);
+void freeTree(Node * node,int count);
 
 
 #endif

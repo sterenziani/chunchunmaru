@@ -3,6 +3,7 @@
 #include "music.h"
 #include <ctype.h>
 #include <string.h>
+#include <stdio.h>
 
 extern FILE * tmpFile;
 
@@ -38,6 +39,7 @@ void freeTree(Node * node,int count) {
 		if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
 			free(node->value);
 		}
+		printf("valor del nodo antes del free en caso base: %s en llamada %d\n",node->value,count);
 		free(node);
 		return;
 	}
@@ -56,6 +58,7 @@ void freeTree(Node * node,int count) {
 	if(node->type == TYPE_NUM || node->type == TYPE_NOTE){
 		free(node->value);
 	}
+	printf("valor del nodo antes del free post llamados recursivos %s en llamada %d\n",node->value,count);
 	free(node);
 }
 
