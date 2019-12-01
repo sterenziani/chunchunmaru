@@ -3,6 +3,7 @@
 #include "music.h"
 #include <ctype.h>
 #include <string.h>
+#include <stdio.h>
 
 extern FILE * tmpFile;
 
@@ -31,6 +32,22 @@ void append(Node * parent, Node * node) {
       	parent->children = node;
 
     node->parent = parent;
+}
+
+void freeTree(Node * node) {
+	if(node->children == NULL && node->next == NULL){
+		free(node);
+		return;
+	}
+	if(node->children != NULL){
+		freeTree(node->children);
+	}
+	//si llego aca children es o se hizo null
+	if(node->next != NULL){
+		freeTree(node->next);
+	}
+	//todo lo del sub arbol ya esta
+	free(node);
 }
 
 void printInorder(Node * node) {

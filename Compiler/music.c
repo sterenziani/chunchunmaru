@@ -294,6 +294,460 @@ void shiftNote(char* n, int offset, char* ret)
     ret[3] = 0;
 }
 
+note shiftNote2(note real, int offset)
+{
+  if(real.frequency == REST)
+    return real;
+  note n = real;
+  while(offset > 0)
+  {
+      if(n.frequency == B5)
+      {
+        printf("ERROR: Can't exceed available octaves!\n");
+        exit(1);
+      }
+      if(n.frequency == C3)
+      {
+        n.frequency = C3_sharp;
+        n.desc[2] = 'C';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == C3_sharp)
+      {
+        n.frequency = D3;
+        n.desc[2] = 'D';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == D3)
+      {
+        n.frequency = D3_sharp;
+        n.desc[2] = 'D';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == D3_sharp)
+      {
+        n.frequency = E3;
+        n.desc[2] = 'E';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == E3)
+      {
+        n.frequency = F3;
+        n.desc[2] = 'F';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == F3)
+      {
+        n.frequency = F3_sharp;
+        n.desc[2] = 'F';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == F3_sharp)
+      {
+        n.frequency = G3;
+        n.desc[2] = 'G';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == G3)
+      {
+        n.frequency = G3_sharp;
+        n.desc[2] = 'G';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == G3_sharp)
+      {
+        n.frequency = A3;
+        n.desc[2] = 'G';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == A3)
+      {
+        n.frequency = A3_sharp;
+        n.desc[2] = 'A';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == A3_sharp)
+      {
+        n.frequency = B3;
+        n.desc[2] = 'B';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == B3)
+      {
+        n.frequency = C4;
+        n.desc[1] = '1';
+        n.desc[2] = 'C';
+        n.desc[3] = 0;
+      }
+
+      else if(n.frequency == C4)
+      {
+        n.frequency = C4_sharp;
+        n.desc[2] = 'C';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == C4_sharp)
+      {
+        n.frequency = D4;
+        n.desc[2] = 'D';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == D4)
+      {
+        n.frequency = D4_sharp;
+        n.desc[2] = 'D';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == D4_sharp)
+      {
+        n.frequency = E4;
+        n.desc[2] = 'E';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == E4)
+      {
+        n.frequency = F4;
+        n.desc[2] = 'F';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == F4)
+      {
+        n.frequency = F4_sharp;
+        n.desc[2] = 'F';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == F4_sharp)
+      {
+        n.frequency = G4;
+        n.desc[2] = 'G';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == G4)
+      {
+        n.frequency = G4_sharp;
+        n.desc[2] = 'G';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == G4_sharp)
+      {
+        n.frequency = A4;
+        n.desc[2] = 'A';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == A4)
+      {
+        n.frequency = A4_sharp;
+        n.desc[2] = 'A';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == A4_sharp)
+      {
+        n.frequency = B4;
+        n.desc[2] = 'B';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == B4)
+      {
+        n.frequency = C5;
+        n.desc[1] = '2';
+        n.desc[2] = 'C';
+        n.desc[3] = 0;
+      }
+
+      else if(n.frequency == C5)
+      {
+        n.frequency = C5_sharp;
+        n.desc[2] = 'G';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == C5_sharp)
+      {
+        n.frequency = D5;
+        n.desc[2] = 'D';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == D5)
+      {
+        n.frequency = D5_sharp;
+        n.desc[2] = 'D';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == D5_sharp)
+      {
+        n.frequency = E5;
+        n.desc[2] = 'E';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == E5)
+      {
+        n.frequency = F5;
+        n.desc[2] = 'F';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == F5)
+      {
+        n.frequency = F5_sharp;
+        n.desc[2] = 'G';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == F5_sharp)
+      {
+        n.frequency = G5;
+        n.desc[2] = 'G';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == G5)
+      {
+        n.frequency = G5_sharp;
+        n.desc[2] = 'G';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == G5_sharp)
+      {
+        n.frequency = A5;
+        n.desc[2] = 'A';
+        n.desc[3] = 0;
+      }
+      else if(n.frequency == A5)
+      {
+        n.frequency = A5_sharp;
+        n.desc[2] = 'A';
+        n.desc[3] = '#';
+      }
+      else if(n.frequency == A5_sharp)
+      {
+        n.frequency = B5;
+        n.desc[2] = 'B';
+        n.desc[3] = 0;
+      }
+      offset--;
+  }
+  while(offset < 0)
+  {
+    if(n.frequency == C3)
+    {
+      printf("ERROR: Can't exceed available octaves!\n");
+      exit(1);
+    }
+    else if(n.frequency == C3_sharp)
+    {
+      n.frequency = C3;
+      n.desc[2] = 'C';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == D3)
+    {
+      n.frequency = C3_sharp;
+      n.desc[2] = 'C';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == D3_sharp)
+    {
+      n.frequency = D3;
+      n.desc[2] = 'D';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == E3)
+    {
+      n.frequency = D3_sharp;
+      n.desc[2] = 'D';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == F3)
+    {
+      n.frequency = E3;
+      n.desc[2] = 'E';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == F3_sharp)
+    {
+      n.frequency = F3;
+      n.desc[2] = 'F';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == G3)
+    {
+      n.frequency = F3_sharp;
+      n.desc[2] = 'F';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == G3_sharp)
+    {
+      n.frequency = G3;
+      n.desc[2] = 'G';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == A3)
+    {
+      n.frequency = G3_sharp;
+      n.desc[2] = 'G';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == A3_sharp)
+    {
+      n.frequency = A3;
+      n.desc[2] = 'A';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == B3)
+    {
+      n.frequency = A3_sharp;
+      n.desc[2] = 'A';
+      n.desc[3] = '#';
+    }
+
+    else if(n.frequency == C4)
+    {
+      n.frequency = B3;
+      n.desc[1] = '0';
+      n.desc[2] = 'B';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == C4_sharp)
+    {
+      n.frequency = C4;
+      n.desc[2] = 'C';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == D4)
+    {
+      n.frequency = C4_sharp;
+      n.desc[2] = 'C';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == D4_sharp)
+    {
+      n.frequency = D4;
+      n.desc[2] = 'D';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == E4)
+    {
+      n.frequency = D4_sharp;
+      n.desc[2] = 'D';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == F4)
+    {
+      n.frequency = E4;
+      n.desc[2] = 'E';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == F4_sharp)
+    {
+      n.frequency = F4;
+      n.desc[2] = 'F';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == G4)
+    {
+      n.frequency = F4_sharp;
+      n.desc[2] = 'F';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == G4_sharp)
+    {
+      n.frequency = G4;
+      n.desc[2] = 'G';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == A4)
+    {
+      n.frequency = G4_sharp;
+      n.desc[2] = 'G';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == A4_sharp)
+    {
+      n.frequency = A4;
+      n.desc[2] = 'A';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == B4)
+    {
+      n.frequency = A4_sharp;
+      n.desc[2] = 'A';
+      n.desc[3] = '#';
+    }
+
+    else if(n.frequency == C5)
+    {
+      n.frequency = B4;
+      n.desc[1] = '1';
+      n.desc[2] = 'B';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == C5_sharp)
+    {
+      n.frequency = C5;
+      n.desc[2] = 'C';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == D5)
+    {
+      n.frequency = C5_sharp;
+      n.desc[2] = 'C';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == D5_sharp)
+    {
+      n.frequency = D5;
+      n.desc[2] = 'D';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == E5)
+    {
+      n.frequency = D5_sharp;
+      n.desc[2] = 'D';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == F5)
+    {
+      n.frequency = E5;
+      n.desc[2] = 'E';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == F5_sharp)
+    {
+      n.frequency = F5;
+      n.desc[2] = 'F';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == G5)
+    {
+      n.frequency = F5_sharp;
+      n.desc[2] = 'F';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == G5_sharp)
+    {
+      n.frequency = G5;
+      n.desc[2] = 'G';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == A5)
+    {
+      n.frequency = G5_sharp;
+      n.desc[2] = 'G';
+      n.desc[3] = '#';
+    }
+    else if(n.frequency == A5_sharp)
+    {
+      n.frequency = A5;
+      n.desc[2] = 'A';
+      n.desc[3] = 0;
+    }
+    else if(n.frequency == B5)
+    {
+      n.frequency = A5_sharp;
+      n.desc[2] = 'A';
+      n.desc[3] = '#';
+    }
+    offset++;
+  }
+  return n;
+}
+
 void playNote(note n)
 {
   if(n.frequency == REST)

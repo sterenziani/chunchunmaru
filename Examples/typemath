@@ -12,4 +12,11 @@ start
 	print "If I have a B key for the second octave, we could represent that as " + 21B
 	print "\nAnd if I want to move my finger four keys to the right on the keyboard, we'd get a D# on the next octave\n"
 	print "Or in other words, we'd get " + (21B + 4) +"\n"
+
+	note n = 20B
+	num a = 4
+	num b = 1
+	print "I have a B on the first octave. If I move my finger " + b + " keys to the left and " + a + " keys to the right, I should land on "
+	print n - b + a
+	print "\n"
 end
