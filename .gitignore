@@ -1,9 +1,6 @@
-sound
-sound.log
-Libraries/openal-soft/build
 cflat
-lex.yy.c
-y.tab.c
-y.tab.h
-compiler_mid.tmp.c
-pulseaudio
+cflat_basic
+cflat.server
+Compiler/src/lex.yy.c
+Compiler/src/y.tab.c
+Compiler/src/y.tab.h
