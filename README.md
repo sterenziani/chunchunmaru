@@ -1,18 +1,29 @@
-# chunchunmaru
+# C♭
 
-Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug donde las notas más altas tienen un tempo más rápido, pero bueno. Podríamos limitar que uses solo 3 octavas (3-5) en vez de las 5 disponibles (2-6)
+Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug donde las notas más altas tienen un tempo más rápido, pero bueno. Podríamos limitar que uses solo 3 octavas (3-5) en vez de las 5 disponibles (2-6).
 
-1) Instalar openAL desde la terminal con el siguiente comando:
+## Instrucciones de Instalacion en Pampero
+
+### En la Computadora Local
+
+1) Instalar OpenAL desde la terminal localmente (donde estan el dispositivo de sonido, no pampero) con el siguiente comando:
+
+En Mac:
 > brew install openal-soft
 
-2) Una vez descargada e instalada la librería, ejecutar desde la raíz del proyecto:
-> make openal
+En Linux:
+> sudo apt-get install libopenal-dev
 
-3) Correr el siguiente comando para crear el compilador de C♭
+2) En la computadora local (la que tiene el dispositivo de)
+
+2) Correr el siguiente comando para crear el compilador de C♭ y el servidor de C♭
 > make all
 
-4) Una vez listo, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje
+3) Una vez listo, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje
 > ./cflat Examples/example
+
+4) Antes de ejecutar cualquier archivo de cflat debe estar corriendo el servidor del mismo. Si no esta corriendo, ejecutar el comando (este servidor se cuelga del puerto 58415, verificar que dicho puerto no este siendo usado por otro programa):
+> ./cflat.server
 
 TO DO:
 - Hacer que se puedan sumar **variabes** de tipo *note* y numeros, no solo valores de tipo *note*
