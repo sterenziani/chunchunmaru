@@ -1,9 +1,3 @@
-// LIBRERÍAS!!!
-// sudo apt-get install libopenal-dev
-
-// PARA COMPILAR!!!
-// gcc -o sound sound.c -lopenal -lm
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

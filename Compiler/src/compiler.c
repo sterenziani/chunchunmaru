@@ -40,7 +40,6 @@ void argParse(int argc, char *argv[], struct op_values * op)
       fprintf(stderr, "Type the file to process as your first argument.\n");
 	    exit(1);
     }
-
     op->input = argv[1];
     op->output = "a.out";
     opterr = 0; // If zero, getopt does not print any messages, but it still returns the character ? to indicate an error.
@@ -53,9 +52,7 @@ void initializeCompiler(char * inputFile) {
         printf ("File not found or could not be opened.\n");
         exit(1);
     }
-
     yyin = read_file;
-
     tmpFile = fopen(TMP_FILE_NAME, "w");
     if (tmpFile == NULL) {
         printf ("An error occured while creating temporary C code file. Compiltion aborted.\n");
@@ -108,7 +105,7 @@ int main(int argc, char *argv[])
     yyparse();
     freeResources();
 
-    // cambiar de true a false para version final
+    // change second param 1 if you want to export the C translation of the compiled code
     compileC(op.output, 0, isThereMusic());
     return 0;
 }

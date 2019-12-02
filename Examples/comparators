@@ -4,7 +4,10 @@ start
 	//		Comparing notes
 
 	text name = "Rodrigo"
-	if name < "Ana"
+	print "Welcome " + name +"!\n"
+	if name < "Agustin"
+		print "Alphabetically, your name comes before Agustin!\n"
+	else if name < "Ana"
 		print "Alphabetically, your name comes before Ana!\n"
 	else if name < "Eugenio"
 		print "Alphabetically, your name comes before Eugenio!\n"
@@ -18,7 +21,7 @@ start
 		print "Alphabetically, your name comes last on our list!\n"
 	end if
 
-	print "\n\n"
+	print "\n"
 
 	note n = 31G#
 	if n < 12C and n < 42C

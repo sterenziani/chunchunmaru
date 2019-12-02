@@ -16,12 +16,8 @@ typedef struct Node {
 } Node;
 
 Node * newNode(type type, char * value);
-
 void append(Node * parent, Node * node);
-
 void printInorder(Node * node);
-
 void freeTree(Node * node);
-
 
 #endif

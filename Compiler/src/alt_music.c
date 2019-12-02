@@ -182,7 +182,7 @@ void shiftNote(char* n, int offset, char* ret)
 
 void playNote(note n)
 {
-  printf("Please get OpenAL!\n");
+  printf("Beep! (Audio not available)\n");
 }
 
 int noteCmp(note n1, note n2)

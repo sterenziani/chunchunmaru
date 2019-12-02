@@ -42,11 +42,9 @@ void freeTree(Node * node) {
 	if(node->children != NULL){
 		freeTree(node->children);
 	}
-	//si llego aca children es o se hizo null
 	if(node->next != NULL){
 		freeTree(node->next);
 	}
-	//todo lo del sub arbol ya esta
 	free(node);
 }
 

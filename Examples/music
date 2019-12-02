@@ -1,4 +1,8 @@
 start
+	// This program will test the following features of the C-Flat language:
+	//		Playing notes of different pitch and length.
+	// You might experience small bugs in Pampero due to package loss, so we recommend trying this code outside of Pampero at least once!
+
 	play 21F
 	play 21A
 	play 31B
