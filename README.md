@@ -25,7 +25,7 @@ En Linux:
 ### En Pampero
 
 4) Realizar una connexion SSH con pampero pero forwardeando el puerto en el que esta corriendo el servidor de C♭:
-> ssh -R58415:localhost:58415 <user>@pampero.it.itba.edu.ar
+> ssh -R58415:localhost:58415 *user*@pampero.it.itba.edu.ar
 
 5) Una vez conectado, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje:
 > ./cflat Examples/music
