@@ -4,9 +4,11 @@ Actualmente el archivo sound.c es un demo de cómo armar música. Tiene un bug d
 
 ## Instrucciones de Instalacion en Pampero
 
-### En la Computadora Local
+Se requieren dos copias del repositorio, una en la Computadora Local y otra en Pampero.
 
-1) Instalar OpenAL desde la terminal localmente (donde estan el dispositivo de sonido, no pampero) con el siguiente comando:
+### En la Computadora Local (la que tiene el dispositivo de reproduccion de audio)
+
+1) Instalar OpenAL desde la terminal con el siguiente comando:
 
 En Mac:
 > brew install openal-soft
@@ -14,16 +16,22 @@ En Mac:
 En Linux:
 > sudo apt-get install libopenal-dev
 
-2) En la computadora local (la que tiene el dispositivo de)
+2) Correr el siguiente comando para crear el servidor de C♭
+> make server
 
-2) Correr el siguiente comando para crear el compilador de C♭ y el servidor de C♭
-> make all
-
-3) Una vez listo, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje
-> ./cflat Examples/example
-
-4) Antes de ejecutar cualquier archivo de cflat debe estar corriendo el servidor del mismo. Si no esta corriendo, ejecutar el comando (este servidor se cuelga del puerto 58415, verificar que dicho puerto no este siendo usado por otro programa):
+3) Una vez listo, correr el servirdor de C♭ (para ello no debe haber corriendo ningun proceso en el puerto 58415, puede ser checkeado de manera sencilla mediante `netstat -nlpt | grep 58415`):
 > ./cflat.server
+
+### En Pampero
+
+4) Realizar una connexion SSH con pampero pero forwardeando el puerto en el que esta corriendo el servidor de C♭:
+> ssh -R58415:localhost:58415 poseroff@pampero.it.itba.edu.ar
+
+5) Una vez conectado, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje:
+> ./cflat Examples/music
+
+6) Luego simplemente correr el archivo a.out:
+> ./a.out
 
 TO DO:
 - Hacer que se puedan sumar **variabes** de tipo *note* y numeros, no solo valores de tipo *note*
