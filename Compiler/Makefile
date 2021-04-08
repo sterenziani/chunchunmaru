@@ -5,8 +5,8 @@ cflat:
 	cd src; \
 	yacc -d yacc.y; \
 	lex lex.l; \
-	gcc -o ../../cflat y.tab.c lex.yy.c music.c node.c operations.c compiler.c DieWithMessage.c ; \
-	gcc -o ../../cflat_basic y.tab.c lex.yy.c alt_music.c node.c operations.c compiler.c ; \
+	gcc -o ../../cflat y.tab.c lex.yy.c music.c node.c operations.c compiler.c -lopenal; \
+	gcc -o ../../cflat_basic y.tab.c lex.yy.c alt_music.c node.c operations.c compiler.c; \
 	echo "\nIf you saw an error just now, just use cflat_basic to compile your code without music!!!\n"
 
 .PHONY: clean

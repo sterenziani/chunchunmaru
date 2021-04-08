@@ -4,3 +4,4 @@ cflat.server
 Compiler/src/lex.yy.c
 Compiler/src/y.tab.c
 Compiler/src/y.tab.h
+a.out

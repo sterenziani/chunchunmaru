@@ -1,3 +1,11 @@
+#ifdef __APPLE__
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
+#elif __linux
+#include <AL/al.h>
+#include <AL/alc.h>
+#endif
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -9,58 +17,101 @@
 #include <time.h>
 #include <unistd.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include "Practical.h"
 
-typedef struct {
-  unsigned rate;
-  int ms;
-} playable;
+ALCdevice  * openal_output_device;
+ALCcontext * openal_output_context;
 
+ALuint internal_buffer;
+ALuint streaming_source[1];
+
+int al_check_error(const char * given_label)
+{
+    ALenum al_error;
+    al_error = alGetError();
+
+    if(AL_NO_ERROR != al_error)
+    {
+        printf("ERROR - %s  (%s)\n", alGetString(al_error), given_label);
+        return al_error;
+    }
+    return 0;
+}
+
+void MM_init_al()
+{
+    const char * defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+    openal_output_device  = alcOpenDevice(defname);
+    openal_output_context = alcCreateContext(openal_output_device, NULL);
+    alcMakeContextCurrent(openal_output_context);
+
+    // setup buffer and source
+    alGenBuffers(1, & internal_buffer);
+    al_check_error("failed call to alGenBuffers");
+}
+
+void MM_exit_al()
+{
+    ALenum errorCode = 0;
+
+    // Stop the sources
+    alSourceStopv(1, & streaming_source[0]);        //      streaming_source
+    int ii;
+    for (ii = 0; ii < 1; ++ii)
+    {
+        alSourcei(streaming_source[ii], AL_BUFFER, 0);
+    }
+
+    // Clean-up
+    alDeleteSources(1, &streaming_source[0]);
+    alDeleteBuffers(16, &streaming_source[0]);
+    errorCode = alGetError();
+    alcMakeContextCurrent(NULL);
+    errorCode = alGetError();
+    alcDestroyContext(openal_output_context);
+    alcCloseDevice(openal_output_device);
+}
+
+// Por alguna razon a mayor rate mas rapido se reproduce, pero el rate determina el pitch
 void play(unsigned rate, int ms)
 {
-char *servIP = "0.0.0.0";     // First arg: server IP address (dotted quad)
-  playable p;
-  p.rate = rate;
-  p.ms = ms;
+  MM_init_al();
+  float freq = rate;
+  float incr_freq = 0.1f;
 
-  // Third arg (optional): server port (numeric).  7 is well-known echo port
-  in_port_t servPort = atoi("58415");
+  size_t buf_size = ms*200*(rate/10000 +1);
 
-  // Create a reliable, stream socket using TCP
-  int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-  if (sock < 0)
-    DieWithSystemMessage("socket() failed");
+  // allocate PCM audio buffer
+  short * samples = malloc(sizeof(short) * buf_size);
 
-  // Construct the server address structure
-  struct sockaddr_in servAddr;            // Server address
-  memset(&servAddr, 0, sizeof(servAddr)); // Zero out structure
-  servAddr.sin_family = AF_INET;          // IPv4 address family
-  // Convert address
-  int rtnVal = inet_pton(AF_INET, servIP, &servAddr.sin_addr.s_addr);
-  if (rtnVal == 0)
-    DieWithUserMessage("inet_pton() failed", "invalid address string");
-  else if (rtnVal < 0)
-    DieWithSystemMessage("inet_pton() failed");
-  servAddr.sin_port = htons(servPort);    // Server port
+  int i=0;
+  for(; i<buf_size; ++i)
+  {
+      samples[i] = 10000+i*500;
+  }
 
-  // Establish the connection to the echo server
-  if (connect(sock, (struct sockaddr *) &servAddr, sizeof(servAddr)) < 0)
-    DieWithSystemMessage("connect() failed");
+  /* upload buffer to OpenAL */
+  alBufferData( internal_buffer, AL_FORMAT_MONO16, samples, buf_size, rate);
+  al_check_error("populating alBufferData");
 
-  // Send the string to the server
-  ssize_t numBytes = send(sock, &p, sizeof(playable), 0);
-  if (numBytes < 0)
-    DieWithSystemMessage("send() failed");
+  free(samples);
+  alGenSources(1, & streaming_source[0]);
+  alSourcei(streaming_source[0], AL_BUFFER, internal_buffer);
+  alSourcePlay(streaming_source[0]);
 
-  close(sock);
+  // ---------------------
+
+  ALenum current_playing_state;
+  alGetSourcei(streaming_source[0], AL_SOURCE_STATE, & current_playing_state);
+  al_check_error("alGetSourcei AL_SOURCE_STATE");
+
+  while (AL_PLAYING == current_playing_state)
+  {
+      alGetSourcei(streaming_source[0], AL_SOURCE_STATE, & current_playing_state);
+      al_check_error("alGetSourcei AL_SOURCE_STATE");
+  }
+
+  /* Dealloc OpenAL */
+  MM_exit_al();
 }
 
 note createNote(unsigned rate, int ms)

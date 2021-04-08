@@ -74,16 +74,16 @@ void printHeaders() {
     fprintf(tmpFile, "#include <string.h>\n");
     fprintf(tmpFile, "#include <termios.h>\n");
     fprintf(tmpFile, "#include <stdio.h>\n");
-		fprintf(tmpFile, "#include \"Compiler/src/music.h\"\n\n");
+    fprintf(tmpFile, "#include \"Compiler/src/music.h\"\n\n");
     fprintf(tmpFile, "%s" , functions);
 }
 
 void compileC(char * outputFile, int debug, int music) {
     char commandBuffer[256];
     if(music)
-      sprintf(commandBuffer, "gcc %s Compiler/src/music.c Compiler/src/DieWithMessage.c -o %s", TMP_FILE_NAME, outputFile);
+        sprintf(commandBuffer, "gcc %s Compiler/src/music.c -o %s", TMP_FILE_NAME, outputFile);
     else
-      sprintf(commandBuffer, "gcc %s Compiler/src/alt_music.c -o %s", TMP_FILE_NAME, outputFile);
+        sprintf(commandBuffer, "gcc %s Compiler/src/alt_music.c -o %s", TMP_FILE_NAME, outputFile);
 
     int gccStatus = system(commandBuffer);
 
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
     yyparse();
     freeResources();
 
-    // change second param 1 if you want to export the C translation of the compiled code
+    // cambiar de true a false para version final
     compileC(op.output, 0, isThereMusic());
     return 0;
 }
