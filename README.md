@@ -7,10 +7,13 @@ Guía de instalación del compilador C♭ en Pampero. Si tiene problemas instala
 1) Clonar el repositorio
 > git clone https://github.com/sterenziani/chunchunmaru
 
-2) Entrar a la carpeta del repositorio
+2) Acceder al branch *local*
+> git checkout local
+
+3) Entrar a la carpeta del repositorio
 > cd chunchunmaru
 
-3) Instalar OpenAL desde la terminal con el siguiente comando:
+4) Instalar OpenAL desde la terminal con el siguiente comando:
 
 En Mac:
 > brew install openal-soft
@@ -18,11 +21,11 @@ En Mac:
 En Linux:
 > sudo apt-get install libopenal-dev
 
-4) Correr el siguiente comando para crear el compilador de C♭
+5) Correr el siguiente comando para crear el compilador de C♭
 > make compiler
 
-5) Una vez conectado, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje:
+6) Una vez conectado, correr el compilador de C♭ junto con algún archivo de ejemplo escrito en nuestro lenguaje:
 > ./cflat Examples/keyboard
 
-6) Luego simplemente correr el archivo a.out:
+7) Luego simplemente correr el archivo a.out:
 > ./a.out
